@@ -12,7 +12,8 @@ if __name__ == "__main__":
   wandb_init = False
   load_model = False
   checkpoint_path = ""
-  save_path = "models"
+  save_path = None
+  model_name = None
   transform_data = False 
 
   print("Editing data...")
@@ -133,5 +134,6 @@ if __name__ == "__main__":
       "model_state_dict" : model.state_dict(),
       "opimizer_state_dict" : optimizer.state_dict(),
     }
-    torch.save(model_param, f"models/v2/noaug_dropout{epoch}.pt")
+    if save_path:
+      torch.save(model_param, f"{save_path}/{model_name}-{epoch}.pt")
       
