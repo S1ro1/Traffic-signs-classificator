@@ -12,8 +12,8 @@ if __name__ == "__main__":
   wandb_init = False
   load_model = False
   checkpoint_path = ""
-  save_path = None
-  model_name = None
+  save_path = "models"
+  model_name = "demo"
   transform_data = False 
 
   print("Editing data...")
@@ -38,7 +38,7 @@ if __name__ == "__main__":
   # hyperparameters
   in_channels = 3
   num_classes = 43
-  learning_rate = 1e-3
+  learning_rate = 3e-4
   batch_size = 64
   num_epochs = 30
   device = ("cuda" if torch.cuda.is_available() else "cpu")
@@ -117,7 +117,6 @@ if __name__ == "__main__":
     avg_testing_accuracy = torch.Tensor(testing_accuracy).mean().item()
     avg_testing_loss = torch.Tensor(testing_loss).mean().item()
         
-    print(f"Epoch : {epoch+1}")
     print(f"Training accuracy : {avg_training_accuracy} | Training loss : {avg_training_loss}")
     print(f"Testing accuracy : {avg_testing_accuracy} | Testing loss : {avg_testing_loss}")
     
@@ -132,7 +131,7 @@ if __name__ == "__main__":
       wandb.log(metrics)
     model_param = {
       "model_state_dict" : model.state_dict(),
-      "opimizer_state_dict" : optimizer.state_dict(),
+      "optimizer_state_dict" : optimizer.state_dict(),
     }
     if save_path:
       torch.save(model_param, f"{save_path}/{model_name}-{epoch}.pt")

@@ -1,4 +1,5 @@
-*.ipynb
+__*
+analysis.ipynb
 data
 resized_data
 models

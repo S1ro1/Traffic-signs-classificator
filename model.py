@@ -9,13 +9,9 @@ class CNN(nn.Module):
 
     self.conv2 = nn.Conv2d(32, 64, 3, stride=1, padding=1)
     self.p2 = nn.MaxPool2d(2, 2)
-    self.dropout = nn.Dropout(0.20)
 
-    self.conv3 = nn.Conv2d(64, 128, 3, stride=1, padding=1)
-    self.p3 = nn.MaxPool2d(2, 2)
-
-    self.fc1 = nn.Linear(128*4*4, 128)
-    self.fc2 = nn.Linear(128, num_classes)
+    self.fc1 = nn.Linear(64*8*8, 64)
+    self.fc2 = nn.Linear(64, num_classes)
 
   def forward(self, x):
     x = F.relu(self.conv1(x))
@@ -23,10 +19,6 @@ class CNN(nn.Module):
 
     x = F.relu(self.conv2(x))
     x = self.p2(x)
-    x = self.dropout(x)
-
-    x = F.relu(self.conv3(x))
-    x = self.p3(x)
 
     x = x.reshape(x.shape[0], -1)
     x = F.relu(self.fc1(x))
